@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+use asbamboo\frameworkDemo\HttpKernel;
 
-use asbamboo\framework\_test\fixtures\HttpKernel;
+require_once dirname(dirname(__DIR__)) . '/test/bootstrap.php';
 
 $kernel = (new HttpKernel())->run();
