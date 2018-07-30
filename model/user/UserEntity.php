@@ -1,6 +1,8 @@
 <?php
 namespace asbamboo\frameworkDemo\model\user;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @Entity
  * @Table(name="t_user")
@@ -8,15 +10,101 @@ namespace asbamboo\frameworkDemo\model\user;
 class UserEntity
 {
     /**
-     * @Id
-     * @Column(type="integer")
-     * @GeneratedValue
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     private $user_seq;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", unique=true)
+     */
     private $user_id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
     private $user_password;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
     private $user_type;
+
+    /**
+     *
+     * @return number
+     */
+    public function getUserSeq()
+    {
+        return $this->user_seq;
+    }
+
+    /**
+     *
+     * @param string $user_id
+     * @return \asbamboo\frameworkDemo\model\user\UserEntity
+     */
+    public function setUserId(string $user_id)
+    {
+        $this->user_id = $user_id;
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     *
+     * @param string $user_password
+     * @return \asbamboo\frameworkDemo\model\user\UserEntity
+     */
+    public function setUserPassword(string $user_password)
+    {
+        $this->user_password    = $user_password;
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getUserPassword()
+    {
+        return $this->user_password;
+    }
+
+    /**
+     *
+     * @param string $user_type
+     * @return \asbamboo\frameworkDemo\model\user\UserEntity
+     */
+    public function setUserType(string $user_type)
+    {
+        $this->user_type    = $user_type;
+        return $this;
+    }
+
+    /**
+     *
+     * @return number
+     */
+    public function getUserType()
+    {
+        return $this->user_type;
+    }
 }

@@ -6,15 +6,16 @@ use asbamboo\framework\controller\ControllerAbstract;
 /**
  *
  * @author 李春寅 <licy2013@aliyun.com>
- * @since 2018年7月26日
+ * @since 2018年7月30日
  */
-class Home extends ControllerAbstract
+class Login extends ControllerAbstract
 {
     /**
+     * 登陆表单
      *
      * @return \asbamboo\http\ResponseInterface
      */
-    public function index()
+    public function form()
     {
         return $this->view();
     }
