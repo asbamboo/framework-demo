@@ -1,8 +1,6 @@
 <?php
 namespace asbamboo\frameworkDemo\model\user;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @Entity
  * @Table(name="t_user")
@@ -12,30 +10,30 @@ class UserEntity
     /**
      * @var int
      *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
     private $user_seq;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true)
+     * @Column(type="string", unique=true)
      */
     private $user_id;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     private $user_password;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     private $user_type;
 
