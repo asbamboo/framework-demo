@@ -1,11 +1,13 @@
 <?php
 namespace asbamboo\frameworkDemo\model\user;
 
+use asbamboo\security\user\BaseUser;
+
 /**
  * @Entity
  * @Table(name="t_user")
  */
-class UserEntity
+class UserEntity extends BaseUser
 {
     /**
      * @var int
@@ -54,6 +56,7 @@ class UserEntity
     public function setUserId(string $user_id)
     {
         $this->user_id = $user_id;
+        $this->setLoginName($user_id);
         return $this;
     }
 
@@ -73,7 +76,9 @@ class UserEntity
      */
     public function setUserPassword(string $user_password)
     {
+        $user_password          = $this->encodePassword($user_password);
         $this->user_password    = $user_password;
+        $this->setLoginPassword($user_password, true);
         return $this;
     }
 
@@ -94,6 +99,7 @@ class UserEntity
     public function setUserType(string $user_type)
     {
         $this->user_type    = $user_type;
+        $this->setRoles([$user_type]);
         return $this;
     }
 

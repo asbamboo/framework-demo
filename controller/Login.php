@@ -2,6 +2,8 @@
 namespace asbamboo\frameworkDemo\controller;
 
 use asbamboo\framework\controller\ControllerAbstract;
+use asbamboo\security\user\login\BaseLogin;
+use asbamboo\http\ResponseInterface;
 
 /**
  *
@@ -15,8 +17,24 @@ class Login extends ControllerAbstract
      *
      * @return \asbamboo\http\ResponseInterface
      */
-    public function form()
+    public function form() : ResponseInterface
     {
         return $this->view();
+    }
+
+    /**
+     *
+     */
+    public function action()
+    {
+        /**
+         *
+         * @var BaseLogin $ServerLogin
+         */
+        $Login      = $this->Container->get('user.login');
+        $Request    = $this->Container->get('kernel.request');
+        $Login->handler($Request);
+        echo 'ok';
+        exit;
     }
 }
