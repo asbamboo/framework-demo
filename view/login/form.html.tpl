@@ -36,13 +36,13 @@
 {% endblock %}
 
 {% block content %}
-    <form class="form-signin" action="{{ path('login_action') }}">
+    <form class="form-signin" action="{{ path('login_action') }}" method="post">
       <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">请登陆</h1>
       <label for="login_name" class="sr-only">ID</label>
-      <input type="text" id="login_password" class="form-control" placeholder="请输入用户ID" required autofocus>
+      <input type="text" id="login_name" name="login_name" class="form-control" placeholder="请输入用户ID" required autofocus>
       <label for="login_password" class="sr-only">密码</label>
-      <input type="password" id="login_password" class="form-control" placeholder="请输入用户密码" required>
+      <input type="password" id="login_password" name="login_password" class="form-control" placeholder="请输入用户密码" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
     </form>
 {% endblock %}

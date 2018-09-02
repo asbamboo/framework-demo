@@ -93,6 +93,16 @@ class UserEntity extends BaseUser
 
     /**
      *
+     * {@inheritDoc}
+     * @see \asbamboo\security\user\BaseUser::getLoginPassword()
+     */
+    public function getLoginPassword(): ?string
+    {
+        return $this->getUserPassword();
+    }
+
+    /**
+     *
      * @param string $user_type
      * @return \asbamboo\frameworkDemo\model\user\UserEntity
      */
