@@ -36,8 +36,10 @@
 {% endblock %}
 
 {% block content %}
-    <form class="form-signin" action="{{ path('login_action') }}" method="post">
-      <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">{{ error_message }}</div>
+    {% endif %}
+    <form class="form-signin" method="post">
       <h1 class="h3 mb-3 font-weight-normal">请登陆</h1>
       <label for="login_name" class="sr-only">ID</label>
       <input type="text" id="login_name" name="login_name" class="form-control" placeholder="请输入用户ID" required autofocus>

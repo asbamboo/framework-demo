@@ -5,13 +5,15 @@ use asbamboo\security\user\login\BaseLogin;
 use asbamboo\security\user\token\UserToken;
 use asbamboo\framework\template\Template;
 use asbamboo\frameworkDemo\model\user\UserProvider;
+use asbamboo\framework\config\EventListenerConfig;
 
 return [
-    'kernel.router.config'  => ['class' => RouterConfig::class, 'init_params' => ['configs' => include __DIR__ . DIRECTORY_SEPARATOR . 'router.php']],
-    'kernel.db.config'      => ['class' => DbConfig::class, 'init_params' => ['configs' => include __DIR__ . DIRECTORY_SEPARATOR . 'db.php']],
-    'kernel.template'       => ['class' => Template::class, 'init_params' => ['template_dir' => [dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view']]],
-    'user.provider'         => ['class' => UserProvider::class],
-    'user.token'            => ['class' => UserToken::class, 'init_params' => ['Session' => '@kernel.session']],
-    'user.login'            => ['class' => BaseLogin::class, 'init_params' => ['UserProvider'=>'@user.provider', 'UserToken'=>'@user.token']],
+    'kernel.router.config'          => ['class' => RouterConfig::class, 'init_params' => ['configs' => include __DIR__ . DIRECTORY_SEPARATOR . 'router.php']],
+    'kernel.db.config'              => ['class' => DbConfig::class, 'init_params' => ['configs' => include __DIR__ . DIRECTORY_SEPARATOR . 'db.php']],
+    'kernel.event.listener.config'  => ['class' => EventListenerConfig::class, 'init_params' => ['configs' => include __DIR__ . DIRECTORY_SEPARATOR . 'listener.php']],
+    'kernel.template'               => ['class' => Template::class, 'init_params' => ['template_dir' => [dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view']]],
+    'user.provider'                 => ['class' => UserProvider::class],
+    'user.token'                    => ['class' => UserToken::class, 'init_params' => ['Session' => '@kernel.session']],
+    'user.login'                    => ['class' => BaseLogin::class, 'init_params' => ['UserProvider'=>'@user.provider', 'UserToken'=>'@user.token']],
 ];
 

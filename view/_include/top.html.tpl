@@ -8,7 +8,7 @@
           <a class="nav-link" href="{{ path('home') }}">文章 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">人员 <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ path('user') }}">人员 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{path('login')}}">登陆</a>
