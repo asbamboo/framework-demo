@@ -7,17 +7,17 @@ use asbamboo\di\ContainerAwareTrait;
 use asbamboo\framework\Constant;
 
 /**
- * 
+ *
  * @author 李春寅 <licy2013@aliyun.com>
  * @since 2018年8月17日
  */
 class InitCommand extends CommandAbstract
 {
     use ContainerAwareTrait;
-    
+
     /**
      * 删除数据信息
-     * 
+     *
      * @param ProcessorInterface $Processor
      */
     private function dropDbData(ProcessorInterface $Processor) : void
@@ -31,11 +31,14 @@ class InitCommand extends CommandAbstract
         $DbManager->getConnection()->exec("
             DROP TABLE IF EXISTS `t_user`;
         ");
+        $DbManager->getConnection()->exec("
+            DROP TABLE IF EXISTS `t_post`;
+        ");
     }
-    
+
     /**
      * 创建初始数据表
-     * 
+     *
      * @param ProcessorInterface $Processor
      */
     private function createDbData(ProcessorInterface $Processor) : void
@@ -49,10 +52,13 @@ class InitCommand extends CommandAbstract
         $DbManager->getConnection()->exec("
             CREATE TABLE `t_user`(`user_seq` INTEGER PRIMARY KEY, `user_id`, `user_password`, `user_type`);
         ");
+        $DbManager->getConnection()->exec("
+            CREATE TABLE `t_post`(`post_seq` INTEGER PRIMARY KEY, `post_title`, `post_content`, `user_seq`, `post_create_time`, `post_update_time`);
+        ");
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      * @see \asbamboo\console\command\CommandInterface::exec()
      */
@@ -66,24 +72,24 @@ class InitCommand extends CommandAbstract
             $Processor->output()->print('系统初始化成功.', "\r\n");
         }
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      * @see \asbamboo\console\command\CommandInterface::help()
      */
     public function help(): string
     {
         $console    = $_SERVER['SCRIPT_FILENAME'];
-        
+
         return <<<HELP
     例: php {$console} {$this->getName()}
-    
+
 HELP;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      * @see \asbamboo\console\command\CommandInterface::desc()
      */
@@ -91,7 +97,7 @@ HELP;
     {
         return '系统初始化';
     }
-    
+
     /**
      * 定义命令行名称
      *

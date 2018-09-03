@@ -94,6 +94,16 @@ class UserEntity extends BaseUser
     /**
      *
      * {@inheritDoc}
+     * @see \asbamboo\security\user\BaseUser::getLoginName()
+     */
+    public function getLoginName() : string
+    {
+        return $this->getUserId();
+    }
+
+    /**
+     *
+     * {@inheritDoc}
      * @see \asbamboo\security\user\BaseUser::getLoginPassword()
      */
     public function getLoginPassword(): ?string
@@ -120,5 +130,14 @@ class UserEntity extends BaseUser
     public function getUserType()
     {
         return $this->user_type;
+    }
+
+    public function __toString()
+    {
+        $string = '';
+        foreach(get_object_vars($this) AS $var){
+            $string .= $var;
+        }
+        return $string;
     }
 }

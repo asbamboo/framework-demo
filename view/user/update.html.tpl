@@ -9,7 +9,7 @@
           <h1 class="h3 mb-3 font-weight-normal">编辑用户</h1>
           <div class="form-group">
             <label for="user_id">ID</label>
-            <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{UserEntity.getUserId()}}" readonly="请输入用户ID">
+            <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{UserEntity.getUserId()}}" readonly>
           </div>
           <div class="form-group">
             <label for="user_password">密码</label>

@@ -1,17 +1,20 @@
 <?php
 namespace asbamboo\frameworkDemo\model\post;
 
-use Doctrine\ORM\Mapping as ORM;
 use asbamboo\frameworkDemo\model\user\UserEntity;
 
+/**
+ * @Entity
+ * @Table(name="t_post")
+ */
 class PostEntity
 {
     /**
      * @var integer
      *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
     private $post_seq;
 
@@ -19,29 +22,30 @@ class PostEntity
     /**
      * @var UserEntity
      *
-     * @ORM\ManyToOne(targetEntity="asbamboo\frameworkDemo\model\user\UserEntity")
-     * @ORM\JoinColumn(name="user_seq", referencedColumnName="user_seq")
+     * @ManyToOne(targetEntity="asbamboo\frameworkDemo\model\user\UserEntity")
+     * @JoinTable(name="t_user")
+     * @JoinColumn(name="user_seq", referencedColumnName="user_seq")
      */
-    private $user;
+    private $User;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     private $post_title;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     private $post_content;
 
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     private $post_create_time;
 
@@ -49,9 +53,19 @@ class PostEntity
      *
      * @var integer
      *
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     private $post_update_time;
+
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->post_create_time = time();
+        $this->post_update_time = time();
+    }
 
     /**
      *
@@ -64,11 +78,33 @@ class PostEntity
 
     /**
      *
+     * @param UserEntity $user
+     * @return \asbamboo\frameworkDemo\model\post\PostEntity
+     */
+    public function setUser(UserEntity $User)
+    {
+        $this->User = $User;
+        return $this;
+    }
+
+    /**
+     *
      * @return \asbamboo\frameworkDemo\model\user\UserEntity
      */
     public function getUser()
     {
-        return $this->user;
+        return $this->User;
+    }
+
+    /**
+     *
+     * @param string $post_title
+     * @return \asbamboo\frameworkDemo\model\post\PostEntity
+     */
+    public function setPostTitle(string $post_title)
+    {
+        $this->post_title   = $post_title;
+        return $this;
     }
 
     /**
@@ -78,6 +114,17 @@ class PostEntity
     public function getPostTitle()
     {
         return $this->post_title;
+    }
+
+    /**
+     *
+     * @param string $post_content
+     * @return \asbamboo\frameworkDemo\model\post\PostEntity
+     */
+    public function setPostContent(string $post_content)
+    {
+        $this->post_content = $post_content;
+        return $this;
     }
 
     /**
@@ -96,6 +143,17 @@ class PostEntity
     public function getPostCreateTime()
     {
         return $this->post_create_time;
+    }
+
+    /**
+     *
+     * @param int $time
+     * @return \asbamboo\frameworkDemo\model\post\PostEntity
+     */
+    public function setPostUpdateTime(int $time)
+    {
+        $this->post_update_time  = $time;
+        return $this;
     }
 
     /**
