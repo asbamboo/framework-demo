@@ -132,12 +132,19 @@ class UserEntity extends BaseUser
         return $this->user_type;
     }
 
-    public function __toString()
+    /**
+     * {@inheritDoc}
+     * @see \asbamboo\security\user\UserInterface::getRoles()
+     */
+    public function getRoles(): array
     {
-        $string = '';
-        foreach(get_object_vars($this) AS $var){
-            $string .= $var;
+        $roles  = [];
+        if($this->getUserType() == Constant::TYPE_ADMIN){
+            $roles[]    = 'admin';
         }
-        return $string;
+        if($this->getUserType() == Constant::TYPE_USER){
+            $roles[]    = 'user';
+        }
+        return $roles;
     }
 }

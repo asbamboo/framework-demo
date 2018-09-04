@@ -16,7 +16,7 @@
             <input type="password" class="form-control" name="user_password" id="user_password" placeholder="请输入用户密码">
           </div>
           <div class="form-group">
-            <label for="user_confirm_password">密码</label>
+            <label for="user_confirm_password">确认密码</label>
             <input type="password" class="form-control" name="user_confirm_password" id="user_confirm_password" placeholder="请确认用户密码">
           </div>
           <button type="submit" class="btn btn-primary">提交表单</button>

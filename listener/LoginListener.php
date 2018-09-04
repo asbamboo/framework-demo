@@ -37,12 +37,4 @@ class LoginListener
         $redirect_url   = $this->Router->generateUrl('home');
         return (new RedirectResponse($redirect_url))->send();
     }
-
-    /**
-     *
-     */
-    public function onLogoutSuccess()
-    {
-
-    }
 }

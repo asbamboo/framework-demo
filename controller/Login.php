@@ -32,7 +32,7 @@ class Login extends ControllerAbstract
              * @var BaseLogin $Login
              */
             $Request    = $this->Container->get('kernel.request');
-            $Login      = $this->Container->get('user.login');
+            $Login      = $this->Container->get('kernel.user.login');
             if($Request->getMethod() == 'POST'){
                 $Login->handler($Request);
             }
@@ -44,5 +44,22 @@ class Login extends ControllerAbstract
             $error_message    = '系统异常。';
         }
         return $this->view(['error_message' => $error_message]);
+    }
+
+    /**
+     * 注销
+     *
+     * @return \asbamboo\http\ResponseInterface
+     */
+    public function logout()
+    {
+        /**
+         * @var ServerRequest $Request
+         * @var BaseLogin $Login
+         */
+        $Request    = $this->Container->get('kernel.request');
+        $Logout     = $this->Container->get('kernel.user.logout');
+        $Logout->handler($Request);
+        return $this->redirect('home');
     }
 }

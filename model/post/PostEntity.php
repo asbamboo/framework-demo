@@ -23,7 +23,6 @@ class PostEntity
      * @var UserEntity
      *
      * @ManyToOne(targetEntity="asbamboo\frameworkDemo\model\user\UserEntity")
-     * @JoinTable(name="t_user")
      * @JoinColumn(name="user_seq", referencedColumnName="user_seq")
      */
     private $User;
