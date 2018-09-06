@@ -1,0 +1,11 @@
+{
+  "name": "framework-demo",
+  "version": "1.0.0",
+  "main": "default.js",
+  "repository": "https://github.com/asbamboo/framework-demo.git",
+  "author": "李春寅 <licy2013@aliyun.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.1.3"
+  }
+}
