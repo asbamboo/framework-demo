@@ -1,6 +1,11 @@
 <?php
-use asbamboo\frameworkDemo\HttpKernel;
+
+use asbamboo\frameworkDemo\AppKernel;
+use asbamboo\framework\kernel\Http;
 
 require_once dirname(dirname(__DIR__)) . '/test/bootstrap.php';
 
-$kernel = (new HttpKernel())->run($debug = false);
+/**
+ * http请求入口文件
+ */
+(new Http())->run(new AppKernel($debug = true));

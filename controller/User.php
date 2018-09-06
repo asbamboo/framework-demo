@@ -47,9 +47,9 @@ class User extends ControllerAbstract
              */
             $Db                     = $this->Container->get(Constant::KERNEL_DB);
             $Request                = $this->Container->get('kernel.request');
-            $user_id                = $Request->getRequestParam('user_id');
-            $user_password          = $Request->getRequestParam('user_password');
-            $user_confirm_password  = $Request->getRequestParam('user_confirm_password');
+            $user_id                = $Request->getPostParam('user_id');
+            $user_password          = $Request->getPostParam('user_password');
+            $user_confirm_password  = $Request->getPostParam('user_confirm_password');
             $UserEntity             = new UserEntity();
             $DbManager              = $Db->getManager();
 
@@ -96,8 +96,8 @@ class User extends ControllerAbstract
              */
             $Db                     = $this->Container->get(Constant::KERNEL_DB);
             $Request                = $this->Container->get('kernel.request');
-            $user_password          = $Request->getRequestParam('user_password');
-            $user_confirm_password  = $Request->getRequestParam('user_confirm_password');
+            $user_password          = $Request->getPostParam('user_password');
+            $user_confirm_password  = $Request->getPostParam('user_confirm_password');
             $DbManager              = $Db->getManager();
             $UserRepository         = $DbManager->getRepository(UserEntity::class);
             $UserEntity             = $UserRepository->findOneBy(['user_id' => $user_id]);
@@ -137,7 +137,7 @@ class User extends ControllerAbstract
          */
         $Db                     = $this->Container->get(Constant::KERNEL_DB);
         $Request                = $this->Container->get('kernel.request');
-        $user_id                = $Request->getRequestParam('user_id');
+        $user_id                = $Request->getPostParam('user_id');
         $DbManager              = $Db->getManager();
         $UserRepository         = $DbManager->getRepository(UserEntity::class);
         $UserEntity             = $UserRepository->findOneBy(['user_id' => $user_id]);

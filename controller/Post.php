@@ -54,8 +54,8 @@ class Post extends ControllerAbstract
              */
             $Db                     = $this->Container->get(Constant::KERNEL_DB);
             $Request                = $this->Container->get('kernel.request');
-            $post_title             = $Request->getRequestParam('post_title');
-            $post_content           = $Request->getRequestParam('post_content');
+            $post_title             = $Request->getPostParam('post_title');
+            $post_content           = $Request->getPostParam('post_content');
             $UserToken              = $this->Container->get('kernel.user.token');
             $DbManager              = $Db->getManager();
             $UserRepository         = $DbManager->getRepository(UserEntity::class);
@@ -105,8 +105,8 @@ class Post extends ControllerAbstract
             $Db                     = $this->Container->get(Constant::KERNEL_DB);
             $Request                = $this->Container->get('kernel.request');
             $UserToken              = $this->Container->get('kernel.user.token');
-            $post_title             = $Request->getRequestParam('post_title');
-            $post_content           = $Request->getRequestParam('post_content');
+            $post_title             = $Request->getPostParam('post_title');
+            $post_content           = $Request->getPostParam('post_content');
             $DbManager              = $Db->getManager();
             $UserRepository         = $DbManager->getRepository(UserEntity::class);
             $UserEntity             = $UserRepository->find($UserToken->getUser()->getUserSeq());
@@ -155,7 +155,7 @@ class Post extends ControllerAbstract
         $Db                     = $this->Container->get(Constant::KERNEL_DB);
         $Request                = $this->Container->get('kernel.request');
         $UserToken              = $this->Container->get('kernel.user.token');
-        $post_seq               = $Request->getRequestParam('post_seq');
+        $post_seq               = $Request->getPostParam('post_seq');
         $DbManager              = $Db->getManager();
         $PostRepository         = $DbManager->getRepository(PostEntity::class);
         $PostEntity             = $PostRepository->find($post_seq);

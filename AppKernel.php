@@ -1,19 +1,19 @@
 <?php
 namespace asbamboo\frameworkDemo;
 
-use asbamboo\framework\kernel\HttpKernel as BaseHttpKernel;
+use asbamboo\framework\kernel\KernelAbstract;
 
 /**
  *
  * @author 李春寅 <licy2013@aliyun.com>
  * @since 2018年7月24日
  */
-class HttpKernel extends BaseHttpKernel
+class AppKernel extends KernelAbstract
 {
     /**
      *
      * {@inheritDoc}
-     * @see \asbamboo\framework\kernel\HttpKernel::getProjectDir()
+     * @see KernelAbstract::getProjectDir()
      */
     public function getProjectDir(): string
     {
@@ -23,7 +23,7 @@ class HttpKernel extends BaseHttpKernel
     /**
      *
      * {@inheritDoc}
-     * @see \asbamboo\framework\kernel\HttpKernel::getConfigPath()
+     * @see KernelAbstract::getConfigPath()
      */
     public function getConfigPath() : string
     {

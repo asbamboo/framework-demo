@@ -1,69 +1,38 @@
 #!/usr/bin/env php
-
 <?php
+namespace asbamboo\frameworkDemo\bin;
 
 use asbamboo\framework\Constant;
-use asbamboo\framework\kernel\ConsoleKernel;
 use asbamboo\framework\kernel\KernelInterface;
-
+use asbamboo\framework\kernel\Console;
+use asbamboo\frameworkDemo\AppKernel;
+use asbamboo\event\EventScheduler;
+use asbamboo\framework\Event;
 require_once dirname(dirname(__DIR__)) . '/test/bootstrap.php';
 
 /**
- * @author 李春寅 <licy2013@aliyun.com>
- * @since 2018年8月13日
+ * 命令行程序入口
  */
-class Console extends ConsoleKernel
-{
-	/**
-     *
-     * {@inheritDoc}
-     * @see \asbamboo\framework\kernel\KernelInterface::boot()
-     */
-	public function boot() : KernelInterface
-	{
-		parent::boot();
-		
-		$CommandCollection	= $this->container->get(Constant::KERNEL_CONSOLE)->commandCollection();
-		
-		$files	= scandir($this->getProjectDir() . DIRECTORY_SEPARATOR . 'command');
-		foreach($files AS $file){
-			$test_class_name	= str_replace('.php', '', $file);
-			$command_name		= strtolower(str_replace('Command', '', $test_class_name)); 
-			$test_class_name	= 'asbamboo\\frameworkDemo\\command\\' . $test_class_name;
-			if(class_exists($test_class_name)){
-				$Command		= new $test_class_name;
-				if(method_exists($Command, 'getName')){
-					$command_name = $Command->getName();
-				}
-				if(method_exists($Command, 'setContainer')){
-					$Command->setContainer($this->container);
-				}
-				$CommandCollection->add($command_name, $Command);
-			}
-		}
-		
-		return $this;
-	}
-	
-	/**
-     *
-     * {@inheritDoc}
-     * @see \asbamboo\framework\kernel\HttpKernel::getProjectDir()
-     */
-    public function getProjectDir(): string
-    {
-        return dirname(__DIR__);
+ 
+EventScheduler::instance()->bind(Event::KERNEL_CONSOLE_PRE_EXEC, function(KernelInterface $Kernel){
+    $CommandCollection  = $Kernel->getContainer()->get(Constant::KERNEL_CONSOLE)->commandCollection();
+    $files  = scandir($Kernel->getProjectDir() . DIRECTORY_SEPARATOR . 'command');
+    foreach($files AS $file){
+        $test_class_name    = str_replace('.php', '', $file);
+        $command_name       = strtolower(str_replace('Command', '', $test_class_name));
+        $test_namespace     = substr(__NAMESPACE__, 0, -3/*bin*/) . 'command\\';
+        $test_class_name    = $test_namespace . $test_class_name;
+        if(class_exists($test_class_name)){
+            $Command        = new $test_class_name;
+            if(method_exists($Command, 'getName')){
+                $command_name = $Command->getName();
+            }
+            if(method_exists($Command, 'setContainer')){
+                $Command->setContainer($Kernel->getContainer());
+            }
+            $CommandCollection->add($command_name, $Command);
+        }
     }
+});
 
-    /**
-     *
-     * {@inheritDoc}
-     * @see \asbamboo\framework\kernel\HttpKernel::getConfigPath()
-     */
-    public function getConfigPath() : string
-    {
-        return dirname(__DIR__) . '/config/config.php' ;
-    }
-}
-
-(new Console())->run();
+(new Console())->run(new AppKernel($debug = true));
