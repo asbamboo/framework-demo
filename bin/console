@@ -23,7 +23,7 @@ EventScheduler::instance()->bind(Event::KERNEL_CONSOLE_PRE_EXEC, function(Kernel
         $test_namespace     = substr(__NAMESPACE__, 0, -3/*bin*/) . 'command\\';
         $test_class_name    = $test_namespace . $test_class_name;
         if(class_exists($test_class_name)){
-            $Command        = new $test_class_name;
+            $Command        = $Kernel->getContainer()->get($test_class_name);
             if(method_exists($Command, 'getName')){
                 $command_name = $Command->getName();
             }

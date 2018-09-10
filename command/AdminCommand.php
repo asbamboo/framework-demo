@@ -8,6 +8,8 @@ use asbamboo\framework\Constant;
 use asbamboo\database\Factory;
 use asbamboo\frameworkDemo\model\user\UserEntity;
 use asbamboo\frameworkDemo\model\user\Constant AS UserConstant;
+use asbamboo\database\FactoryInterface;
+use asbamboo\database\ManagerInterface;
 
 /**
  *
@@ -20,11 +22,18 @@ class AdminCommand extends CommandAbstract
 
     /**
      *
+     * @var ManagerInterface
      */
-    public function __construct()
+    private $DbManager;
+
+    /**
+     *
+     * @param FactoryInterface $Db
+     */
+    public function __construct(FactoryInterface $Db)
     {
         parent::__construct();
-
+        $this->DbManager   = $Db->getManager();
         $this->AddOption('list', null, '列出所有管理员账号', 'l');
         $this->AddOption('insert', null, '添加新的管理员账号', 'i');
     }
@@ -40,9 +49,7 @@ class AdminCommand extends CommandAbstract
          *
          * @var Factory $Db
          */
-        $Db             = $this->Container->get(Constant::KERNEL_DB);
-        $DbManager      = $Db->getManager();
-        $UserEntitys    = $DbManager->getRepository(UserEntity::class)->findBy(['user_type' => UserConstant::TYPE_ADMIN]);
+        $UserEntitys    = $this->DbManager->getRepository(UserEntity::class)->findBy(['user_type' => UserConstant::TYPE_ADMIN]);
         foreach($UserEntitys AS $UserEntity){
             $Processor->output()->print($UserEntity->getUserId(), "\t");
         }
@@ -87,10 +94,8 @@ class AdminCommand extends CommandAbstract
          *
          * @var Factory $Db
          */
-        $Db                 = $this->Container->get(Constant::KERNEL_DB);
-        $DbManager          = $Db->getManager();
-        $DbManager->persist($UserEntity);
-        $DbManager->flush();
+        $this->DbManager->persist($UserEntity);
+        $this->DbManager->flush();
         $Processor->output()->print('管理员添加成功', "\r\n");
     }
 

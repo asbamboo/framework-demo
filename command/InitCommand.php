@@ -5,6 +5,8 @@ use asbamboo\console\ProcessorInterface;
 use asbamboo\console\command\CommandAbstract;
 use asbamboo\di\ContainerAwareTrait;
 use asbamboo\framework\Constant;
+use asbamboo\database\ManagerInterface;
+use asbamboo\database\FactoryInterface;
 
 /**
  *
@@ -14,6 +16,24 @@ use asbamboo\framework\Constant;
 class InitCommand extends CommandAbstract
 {
     use ContainerAwareTrait;
+
+    /**
+     *
+     * @var ManagerInterface
+     */
+    private $DbManager;
+
+    /**
+     *
+     * @param FactoryInterface $Db
+     */
+    public function __construct(FactoryInterface $Db)
+    {
+        parent::__construct();
+        $this->DbManager   = $Db->getManager();
+        $this->AddOption('list', null, '列出所有管理员账号', 'l');
+        $this->AddOption('insert', null, '添加新的管理员账号', 'i');
+    }
 
     /**
      * 删除数据信息
@@ -26,12 +46,10 @@ class InitCommand extends CommandAbstract
          *
          * @var Factory $Db
          */
-        $Db                 = $this->Container->get(Constant::KERNEL_DB);
-        $DbManager          = $Db->getManager();
-        $DbManager->getConnection()->exec("
+        $this->DbManager->getConnection()->exec("
             DROP TABLE IF EXISTS `t_user`;
         ");
-        $DbManager->getConnection()->exec("
+        $this->DbManager->getConnection()->exec("
             DROP TABLE IF EXISTS `t_post`;
         ");
     }
@@ -47,12 +65,10 @@ class InitCommand extends CommandAbstract
          *
          * @var Factory $Db
          */
-        $Db                 = $this->Container->get(Constant::KERNEL_DB);
-        $DbManager          = $Db->getManager();
-        $DbManager->getConnection()->exec("
+        $this->DbManager->getConnection()->exec("
             CREATE TABLE `t_user`(`user_seq` INTEGER PRIMARY KEY, `user_id`, `user_password`, `user_type`);
         ");
-        $DbManager->getConnection()->exec("
+        $this->DbManager->getConnection()->exec("
             CREATE TABLE `t_post`(`post_seq` INTEGER PRIMARY KEY, `post_title`, `post_content`, `user_seq`, `post_create_time`, `post_update_time`);
         ");
     }
