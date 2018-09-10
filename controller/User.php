@@ -18,10 +18,18 @@ use asbamboo\http\ServerRequestInterface;
  */
 class User extends ControllerAbstract
 {
-    private $DbManager;
+    /**
+     *
+     * @var FactoryInterface $DbManager
+     * @var ServerRequestInterface $Request
+     */
+    private $DbManager, $Request;
 
-    private $Request;
-
+    /**
+     *
+     * @param FactoryInterface $Db
+     * @param ServerRequestInterface $Request
+     */
     public function __construct(FactoryInterface $Db, ServerRequestInterface $Request)
     {
         $this->DbManager   = $Db->getManager();

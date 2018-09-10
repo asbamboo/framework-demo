@@ -21,20 +21,10 @@ class Login extends ControllerAbstract
     /**
      *
      * @var ServerRequestInterface
-     */
-    private $Request;
-
-    /**
-     *
      * @var LoginInterface
-     */
-    private $Login;
-
-    /**
-     *
      * @var LogoutInterface
      */
-    private $Logout;
+    private $Request, $Login, $Logout;
 
     /**
      *

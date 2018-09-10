@@ -26,20 +26,10 @@ class Post extends ControllerAbstract
     /**
      *
      * @var ManagerInterface
-     */
-    private $DbManager;
-
-    /**
-     *
      * @var UserTokenInterface
-     */
-    private $UserToken;
-
-    /**
-     *
      * @var ServerRequestInterface
      */
-    private $Request;
+    private $DbManager, $UserToken, $Request;
 
     /**
      *
