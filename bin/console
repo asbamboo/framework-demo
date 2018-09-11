@@ -8,7 +8,9 @@ use asbamboo\framework\kernel\Console;
 use asbamboo\frameworkDemo\AppKernel;
 use asbamboo\event\EventScheduler;
 use asbamboo\framework\Event;
-require_once dirname(dirname(__DIR__)) . '/test/bootstrap.php';
+
+$autoload   = require_once dirname(__DIR__) . '/vendor/asbamboo/autoload/bootstrap.php';
+$autoload->addMappingDir('asbamboo\\frameworkDemo\\', dirname(__DIR__));
 
 /**
  * 命令行程序入口
