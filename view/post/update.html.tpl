@@ -13,7 +13,7 @@
           </div>
           <div class="form-group">
             <label for="post_content">内容</label>
-            <textarea class="form-control" name="post_content" id="post_content" rows="15" placeholder="请输入文章内容"><{{PostEntity.getPostContent()}}</textarea>
+            <textarea class="form-control" name="post_content" id="post_content" rows="15" placeholder="请输入文章内容">{{PostEntity.getPostContent()}}</textarea>
           </div>
           <div class="form-group">
             <label for="post_create_time">创建时间</label>

@@ -7,6 +7,9 @@ use asbamboo\http\ResponseInterface;
 use asbamboo\security\exception\UserNotExistsException;
 use asbamboo\security\exception\NotEqualPasswordException;
 use asbamboo\http\ServerRequest;
+use asbamboo\http\ServerRequestInterface;
+use asbamboo\security\user\login\LoginInterface;
+use asbamboo\security\user\login\LogoutInterface;
 
 /**
  *
@@ -15,6 +18,27 @@ use asbamboo\http\ServerRequest;
  */
 class Login extends ControllerAbstract
 {
+    /**
+     *
+     * @var ServerRequestInterface
+     * @var LoginInterface
+     * @var LogoutInterface
+     */
+    private $Request, $Login, $Logout;
+
+    /**
+     *
+     * @param ServerRequestInterface $Request
+     * @param LoginInterface $Login
+     * @param LogoutInterface $Logout
+     */
+    public function __construct(ServerRequestInterface $Request, LoginInterface $Login, LogoutInterface $Logout)
+    {
+        $this->Request  = $Request;
+        $this->Login    = $Login;
+        $this->Logout   = $Logout;
+    }
+
     /**
      * 登陆表单
      *
@@ -27,14 +51,9 @@ class Login extends ControllerAbstract
         {
             /**
              * 登录成功后通过事件处理页面跳转。
-             *
-             * @var ServerRequest $Request
-             * @var BaseLogin $Login
              */
-            $Request    = $this->Container->get('kernel.request');
-            $Login      = $this->Container->get('kernel.user.login');
-            if($Request->getMethod() == 'POST'){
-                $Login->handler($Request);
+            if($this->Request->getMethod() == 'POST'){
+                $this->Login->handler($this->Request);
             }
         }catch(UserNotExistsException $e){
             $error_message    = '用户名或者密码错误';
@@ -53,13 +72,7 @@ class Login extends ControllerAbstract
      */
     public function logout()
     {
-        /**
-         * @var ServerRequest $Request
-         * @var BaseLogin $Login
-         */
-        $Request    = $this->Container->get('kernel.request');
-        $Logout     = $this->Container->get('kernel.user.logout');
-        $Logout->handler($Request);
+        $this->Logout->handler($this->Request);
         return $this->redirect('home');
     }
 }

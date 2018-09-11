@@ -5,6 +5,7 @@ use asbamboo\security\user\UserInterface;
 use asbamboo\security\user\provider\UserProviderInterface;
 use asbamboo\di\ContainerAwareTrait;
 use asbamboo\framework\Constant;
+use asbamboo\database\FactoryInterface;
 
 /**
  *
@@ -17,6 +18,21 @@ class UserProvider implements UserProviderInterface
 
     /**
      *
+     * @var FactoryInterface
+     */
+    private $Db;
+
+    /**
+     *
+     * @param FactoryInterface $Db
+     */
+    public function __construct(FactoryInterface $Db)
+    {
+        $this->Db   = $Db;
+    }
+
+    /**
+     *
      * {@inheritDoc}
      * @see \asbamboo\security\user\provider\UserProviderInterface::loadByLoginName()
      */
@@ -25,8 +41,7 @@ class UserProvider implements UserProviderInterface
         $criteria   = [
             'user_id' => $login_name,
         ];
-        $Db         = $this->Container->get(Constant::KERNEL_DB);
-        $Manager    = $Db->getManager();
+        $Manager    = $this->Db->getManager();
         return $Manager->getRepository(UserEntity::class)->findOneBy($criteria);
     }
 }

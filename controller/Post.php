@@ -11,6 +11,10 @@ use \asbamboo\frameworkDemo\model\user\Constant AS UserConstant;
 use asbamboo\frameworkDemo\model\post\PostEntity;
 use asbamboo\security\user\token\UserToken;
 use asbamboo\frameworkDemo\model\user\UserRepository;
+use asbamboo\database\FactoryInterface;
+use asbamboo\security\user\token\UserTokenInterface;
+use asbamboo\database\ManagerInterface;
+use asbamboo\http\ServerRequestInterface;
 
 /**
  *
@@ -21,19 +25,35 @@ class Post extends ControllerAbstract
 {
     /**
      *
+     * @var ManagerInterface
+     * @var UserTokenInterface
+     * @var ServerRequestInterface
+     */
+    private $DbManager, $UserToken, $Request;
+
+    /**
+     *
+     * @param FactoryInterface $Db
+     * @param UserTokenInterface $UserToken
+     * @param ServerRequestInterface $Request
+     */
+    public function __construct(FactoryInterface $Db, UserTokenInterface $UserToken, ServerRequestInterface $Request)
+    {
+        $this->DbManager    = $Db->getManager();
+        $this->UserToken    = $UserToken;
+        $this->Request      = $Request;
+    }
+
+    /**
+     *
      * @return ResponseInterface
      */
     public function index() : ResponseInterface
     {
-        /**
-         * @var Factory $Db
-         * @var UserToken $UserToken
-         */
-        $Db                     = $this->Container->get(Constant::KERNEL_DB);
-        $UserToken              = $this->Container->get('kernel.user.token');
-
-        $DbManager              = $Db->getManager();
-        $PostEntitys            = $DbManager->getRepository(PostEntity::class)->findBy(['User' => $UserToken->getUser()->getUserSeq()], ['post_update_time' => 'DESC']);
+        $PostEntitys    = $this->DbManager->getRepository(PostEntity::class)->findBy([
+            'User' => $this->UserToken->getUser()->getUserSeq()],
+            ['post_update_time' => 'DESC']
+        );
         return $this->view([ 'PostEntitys' => $PostEntitys]);
     }
 
@@ -47,22 +67,16 @@ class Post extends ControllerAbstract
         try
         {
             /**
-             * @var Factory $Db
-             * @var ServerRequest $Request
-             * @var UserToken $UserToken
              * @var UserRepository $UserRepository;
              */
-            $Db                     = $this->Container->get(Constant::KERNEL_DB);
-            $Request                = $this->Container->get('kernel.request');
-            $post_title             = $Request->getPostParam('post_title');
-            $post_content           = $Request->getPostParam('post_content');
+            $post_title             = $this->Request->getPostParam('post_title');
+            $post_content           = $this->Request->getPostParam('post_content');
             $UserToken              = $this->Container->get('kernel.user.token');
-            $DbManager              = $Db->getManager();
-            $UserRepository         = $DbManager->getRepository(UserEntity::class);
-            $UserEntity             = $UserRepository->find($UserToken->getUser()->getUserSeq());
+            $UserRepository         = $this->DbManager->getRepository(UserEntity::class);
+            $UserEntity             = $UserRepository->find($this->UserToken->getUser()->getUserSeq());
             $PostEntity             = new PostEntity();
 
-            if($Request->getMethod() == 'POST'){
+            if($this->Request->getMethod() == 'POST'){
                 if(empty($post_title)){
                     throw new \InvalidArgumentException('请输入文章标题。');
                 }
@@ -75,8 +89,8 @@ class Post extends ControllerAbstract
                 $PostEntity->setPostContent($post_content);
                 $PostEntity->setUser($UserEntity);
 
-                $DbManager->persist($PostEntity);
-                $DbManager->flush();
+                $this->DbManager->persist($PostEntity);
+                $this->DbManager->flush();
                 return $this->redirect('post');
             }
         }catch(\Exception $e){
@@ -96,24 +110,17 @@ class Post extends ControllerAbstract
         try
         {
             /**
-             * @var Factory $Db
-             * @var ServerRequest $Request
-             * @var UserToken $UserToken
              * @var PostEntity $PostEntity
              * @var UserRepository $UserRepository;
              */
-            $Db                     = $this->Container->get(Constant::KERNEL_DB);
-            $Request                = $this->Container->get('kernel.request');
-            $UserToken              = $this->Container->get('kernel.user.token');
-            $post_title             = $Request->getPostParam('post_title');
-            $post_content           = $Request->getPostParam('post_content');
-            $DbManager              = $Db->getManager();
-            $UserRepository         = $DbManager->getRepository(UserEntity::class);
-            $UserEntity             = $UserRepository->find($UserToken->getUser()->getUserSeq());
-            $PostRepository         = $DbManager->getRepository(PostEntity::class);
+            $post_title             = $this->Request->getPostParam('post_title');
+            $post_content           = $this->Request->getPostParam('post_content');
+            $UserRepository         = $this->DbManager->getRepository(UserEntity::class);
+            $UserEntity             = $UserRepository->find($this->UserToken->getUser()->getUserSeq());
+            $PostRepository         = $this->DbManager->getRepository(PostEntity::class);
             $PostEntity             = $PostRepository->find($post_seq);
 
-            if($Request->getMethod() == 'POST'){
+            if($this->Request->getMethod() == 'POST'){
                 if(empty($post_title)){
                     throw new \InvalidArgumentException('请输入文章标题。');
                 }
@@ -122,7 +129,7 @@ class Post extends ControllerAbstract
                     throw new \InvalidArgumentException('请输入文章内容。');
                 }
 
-                if($PostEntity->getUser()->getLoginName() != $UserToken->getUser()->getLoginName()){
+                if($PostEntity->getUser()->getLoginName() != $this->UserToken->getUser()->getLoginName()){
                     throw new \InvalidArgumentException('只能编辑自己发布的文章内容。');
                 }
 
@@ -130,8 +137,8 @@ class Post extends ControllerAbstract
                 $PostEntity->setPostContent($post_content);
                 $PostEntity->setPostUpdateTime(time());
 
-                $DbManager->persist($PostEntity);
-                $DbManager->flush();
+                $this->DbManager->persist($PostEntity);
+                $this->DbManager->flush();
                 return $this->redirect('post');
             }
         }catch(\Exception $e){
@@ -147,25 +154,16 @@ class Post extends ControllerAbstract
      */
     public function delete() : ResponseInterface
     {
-        /**
-         * @var Factory $Db
-         * @var UserToken $UserToken
-         * @var ServerRequest $Request
-         */
-        $Db                     = $this->Container->get(Constant::KERNEL_DB);
-        $Request                = $this->Container->get('kernel.request');
-        $UserToken              = $this->Container->get('kernel.user.token');
-        $post_seq               = $Request->getPostParam('post_seq');
-        $DbManager              = $Db->getManager();
-        $PostRepository         = $DbManager->getRepository(PostEntity::class);
+        $post_seq               = $this->Request->getPostParam('post_seq');
+        $PostRepository         = $this->DbManager->getRepository(PostEntity::class);
         $PostEntity             = $PostRepository->find($post_seq);
 
-        if($Request->getMethod() == 'POST'){
-            if($PostEntity->getUser()->getLoginName() != $UserToken->getUser()->getLoginName()){
+        if($this->Request->getMethod() == 'POST'){
+            if($PostEntity->getUser()->getLoginName() != $this->UserToken->getUser()->getLoginName()){
                 throw new \InvalidArgumentException('只能删除自己发布的文章内容。');
             }
-            $DbManager->remove($PostEntity);
-            $DbManager->flush();
+            $this->DbManager->remove($PostEntity);
+            $this->DbManager->flush();
             return $this->redirect('post');
         }
     }

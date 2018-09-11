@@ -1,5 +1,4 @@
 <?php
-use asbamboo\frameworkDemo\model\user\Constant;
 use asbamboo\security\gurad\authorization\Rule;
 use asbamboo\security\gurad\authorization\RuleCollection;
 use asbamboo\security\user\Role;

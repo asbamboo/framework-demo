@@ -8,6 +8,8 @@ use asbamboo\framework\Constant;
 use asbamboo\database\Factory;
 use asbamboo\frameworkDemo\model\user\UserEntity;
 use \asbamboo\frameworkDemo\model\user\Constant AS UserConstant;
+use asbamboo\database\FactoryInterface;
+use asbamboo\http\ServerRequestInterface;
 
 /**
  *
@@ -18,16 +20,29 @@ class User extends ControllerAbstract
 {
     /**
      *
+     * @var FactoryInterface $DbManager
+     * @var ServerRequestInterface $Request
+     */
+    private $DbManager, $Request;
+
+    /**
+     *
+     * @param FactoryInterface $Db
+     * @param ServerRequestInterface $Request
+     */
+    public function __construct(FactoryInterface $Db, ServerRequestInterface $Request)
+    {
+        $this->DbManager   = $Db->getManager();
+        $this->Request      = $Request;
+    }
+
+    /**
+     *
      * @return ResponseInterface
      */
     public function index() : ResponseInterface
     {
-        /**
-         * @var Factory $Db
-         */
-        $Db                     = $this->Container->get(Constant::KERNEL_DB);
-        $DbManager              = $Db->getManager();
-        $UserEntitys            = $DbManager->getRepository(UserEntity::class)->findBy(['user_type' => UserConstant::TYPE_USER]);
+        $UserEntitys            = $this->DbManager->getRepository(UserEntity::class)->findBy(['user_type' => UserConstant::TYPE_USER]);
 
         return $this->view([ 'UserEntitys' => $UserEntitys]);
     }
@@ -41,19 +56,12 @@ class User extends ControllerAbstract
         $error_message  = '';
         try
         {
-            /**
-             * @var Factory $Db
-             * @var ServerRequest $Request
-             */
-            $Db                     = $this->Container->get(Constant::KERNEL_DB);
-            $Request                = $this->Container->get('kernel.request');
-            $user_id                = $Request->getPostParam('user_id');
-            $user_password          = $Request->getPostParam('user_password');
-            $user_confirm_password  = $Request->getPostParam('user_confirm_password');
+            $user_id                = $this->Request->getPostParam('user_id');
+            $user_password          = $this->Request->getPostParam('user_password');
+            $user_confirm_password  = $this->Request->getPostParam('user_confirm_password');
             $UserEntity             = new UserEntity();
-            $DbManager              = $Db->getManager();
 
-            if($Request->getMethod() == 'POST'){
+            if($this->Request->getMethod() == 'POST'){
                 if(empty($user_id)){
                     throw new \InvalidArgumentException('请输入用户id。');
                 }
@@ -70,8 +78,8 @@ class User extends ControllerAbstract
                 $UserEntity->setUserPassword($user_password);
                 $UserEntity->setUserType(UserConstant::TYPE_USER);
 
-                $DbManager->persist($UserEntity);
-                $DbManager->flush();
+                $this->DbManager->persist($UserEntity);
+                $this->DbManager->flush();
                 return $this->redirect('user');
             }
         }catch(\Exception $e){
@@ -90,19 +98,12 @@ class User extends ControllerAbstract
         $error_message  = '';
         try
         {
-            /**
-             * @var Factory $Db
-             * @var ServerRequest $Request
-             */
-            $Db                     = $this->Container->get(Constant::KERNEL_DB);
-            $Request                = $this->Container->get('kernel.request');
-            $user_password          = $Request->getPostParam('user_password');
-            $user_confirm_password  = $Request->getPostParam('user_confirm_password');
-            $DbManager              = $Db->getManager();
-            $UserRepository         = $DbManager->getRepository(UserEntity::class);
+            $user_password          = $this->Request->getPostParam('user_password');
+            $user_confirm_password  = $this->Request->getPostParam('user_confirm_password');
+            $UserRepository         = $this->DbManager->getRepository(UserEntity::class);
             $UserEntity             = $UserRepository->findOneBy(['user_id' => $user_id]);
 
-            if($Request->getMethod() == 'POST'){
+            if($this->Request->getMethod() == 'POST'){
                 if(empty($user_password)){
                     throw new \InvalidArgumentException('请输入用户密码。');
                 }
@@ -114,8 +115,8 @@ class User extends ControllerAbstract
                 $UserEntity->setUserPassword($user_password);
                 $UserEntity->setUserType(UserConstant::TYPE_USER);
 
-                $DbManager->persist($UserEntity);
-                $DbManager->flush();
+                $this->DbManager->persist($UserEntity);
+                $this->DbManager->flush();
                 return $this->redirect('user');
             }
         }catch(\Exception $e){
@@ -131,20 +132,13 @@ class User extends ControllerAbstract
      */
     public function delete() : ResponseInterface
     {
-        /**
-         * @var Factory $Db
-         * @var ServerRequest $Request
-         */
-        $Db                     = $this->Container->get(Constant::KERNEL_DB);
-        $Request                = $this->Container->get('kernel.request');
-        $user_id                = $Request->getPostParam('user_id');
-        $DbManager              = $Db->getManager();
-        $UserRepository         = $DbManager->getRepository(UserEntity::class);
+        $user_id                = $this->Request->getPostParam('user_id');
+        $UserRepository         = $this->DbManager->getRepository(UserEntity::class);
         $UserEntity             = $UserRepository->findOneBy(['user_id' => $user_id]);
 
-        if($Request->getMethod() == 'POST'){
-            $DbManager->remove($UserEntity);
-            $DbManager->flush();
+        if($this->Request->getMethod() == 'POST'){
+            $this->DbManager->remove($UserEntity);
+            $this->DbManager->flush();
             return $this->redirect('user');
         }
     }
