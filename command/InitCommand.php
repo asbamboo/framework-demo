@@ -31,8 +31,6 @@ class InitCommand extends CommandAbstract
     {
         parent::__construct();
         $this->DbManager   = $Db->getManager();
-        $this->AddOption('list', null, '列出所有管理员账号', 'l');
-        $this->AddOption('insert', null, '添加新的管理员账号', 'i');
     }
 
     /**
