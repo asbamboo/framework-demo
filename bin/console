@@ -20,7 +20,11 @@ $autoload->addMappingDir('asbamboo\\frameworkDemo\\', dirname(__DIR__));
  
 EventScheduler::instance()->bind(Event::KERNEL_CONSOLE_PRE_EXEC, function(KernelInterface $Kernel){
     $CommandCollection  = $Kernel->getContainer()->get(ProcessorInterface::class)->commandCollection();
-    $files  = scandir($Kernel->getProjectDir() . DIRECTORY_SEPARATOR . 'command');
+    $command_path		= $Kernel->getProjectDir() . DIRECTORY_SEPARATOR . 'command';
+    if(!is_dir($command_path)){
+    	return;
+    }
+    $files  = scandir($command_path);
     foreach($files AS $file){
         $test_class_name    = str_replace('.php', '', $file);
         $command_name       = strtolower(str_replace('Command', '', $test_class_name));
