@@ -8,17 +8,23 @@ use asbamboo\framework\kernel\Console;
 use asbamboo\frameworkDemo\AppKernel;
 use asbamboo\event\EventScheduler;
 use asbamboo\framework\Event;
+use asbamboo\console\ProcessorInterface;
 
 $autoload   = require_once dirname(__DIR__) . '/vendor/asbamboo/autoload/bootstrap.php';
 $autoload->addMappingDir('asbamboo\\frameworkDemo\\', dirname(__DIR__));
+// $autoload   = require_once dirname(dirname(__DIR__)) . '/test/bootstrap.php';
 
 /**
  * 命令行程序入口
  */
  
 EventScheduler::instance()->bind(Event::KERNEL_CONSOLE_PRE_EXEC, function(KernelInterface $Kernel){
-    $CommandCollection  = $Kernel->getContainer()->get(Constant::KERNEL_CONSOLE)->commandCollection();
-    $files  = scandir($Kernel->getProjectDir() . DIRECTORY_SEPARATOR . 'command');
+    $CommandCollection  = $Kernel->getContainer()->get(ProcessorInterface::class)->commandCollection();
+    $command_path		= $Kernel->getProjectDir() . DIRECTORY_SEPARATOR . 'command';
+    if(!is_dir($command_path)){
+    	return;
+    }
+    $files  = scandir($command_path);
     foreach($files AS $file){
         $test_class_name    = str_replace('.php', '', $file);
         $command_name       = strtolower(str_replace('Command', '', $test_class_name));
