@@ -71,7 +71,6 @@ class Post extends ControllerAbstract
              */
             $post_title             = $this->Request->getPostParam('post_title');
             $post_content           = $this->Request->getPostParam('post_content');
-            $UserToken              = $this->Container->get('kernel.user.token');
             $UserRepository         = $this->DbManager->getRepository(UserEntity::class);
             $UserEntity             = $UserRepository->find($this->UserToken->getUser()->getUserSeq());
             $PostEntity             = new PostEntity();

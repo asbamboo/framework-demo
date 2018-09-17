@@ -2,10 +2,8 @@
 namespace asbamboo\frameworkDemo\controller;
 
 use asbamboo\framework\controller\ControllerAbstract;
-use asbamboo\framework\Constant;
 use asbamboo\frameworkDemo\model\post\PostEntity;
 use Doctrine\ORM\EntityRepository;
-use asbamboo\database\Factory;
 use asbamboo\database\FactoryInterface;
 
 /**

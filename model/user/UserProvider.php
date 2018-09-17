@@ -4,7 +4,6 @@ namespace asbamboo\frameworkDemo\model\user;
 use asbamboo\security\user\UserInterface;
 use asbamboo\security\user\provider\UserProviderInterface;
 use asbamboo\di\ContainerAwareTrait;
-use asbamboo\framework\Constant;
 use asbamboo\database\FactoryInterface;
 
 /**
