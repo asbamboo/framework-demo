@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "a2ca64ec8918d046b7d1fc704a3f8932",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/api.git",
-                "reference": "6d968b5e64e9edd1f460d42c371230cef59c2426"
+                "reference": "5fb885e718604fc5d854b2b50fe012f98c60bd6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/asbamboo/api/zipball/6d968b5e64e9edd1f460d42c371230cef59c2426",
-                "reference": "6d968b5e64e9edd1f460d42c371230cef59c2426",
+                "url": "https://api.github.com/repos/asbamboo/api/zipball/5fb885e718604fc5d854b2b50fe012f98c60bd6f",
+                "reference": "5fb885e718604fc5d854b2b50fe012f98c60bd6f",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
                 "source": "https://github.com/asbamboo/api/tree/1.0.0",
                 "issues": "https://github.com/asbamboo/api/issues"
             },
-            "time": "2018-09-30T08:03:11+00:00"
+            "time": "2018-09-30T11:44:34+00:00"
         },
         {
             "name": "asbamboo/autoload",
@@ -284,7 +284,7 @@
                 "source": "https://github.com/asbamboo/framework/tree/v1.0.0",
                 "issues": "https://github.com/asbamboo/framework/issues"
             },
-            "time": "2018-09-21T13:56:20+00:00"
+            "time": "2018-09-30T07:15:28+00:00"
         },
         {
             "name": "asbamboo/helper",

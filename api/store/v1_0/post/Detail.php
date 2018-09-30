@@ -1,5 +1,5 @@
 <?php
-namespace asbamboo\frameworkDemo\api\store\v1_0;
+namespace asbamboo\frameworkDemo\api\store\v1_0\post;
 
 use asbamboo\api\apiStore\ApiClassAbstract;
 use asbamboo\api\apiStore\ApiRequestParamsInterface;
@@ -9,14 +9,19 @@ use asbamboo\frameworkDemo\model\user\UserEntity;
 use asbamboo\frameworkDemo\model\post\PostEntity;
 use asbamboo\frameworkDemo\api\exception\post\NotFoundException;
 use asbamboo\frameworkDemo\api\store\v1_0\detail\ResponseParams;
+use asbamboo\frameworkDemo\api\traits\GetApiUserTrait;
 
 /**
  *
+ * @name 文章详情
+ * @desc 获取指定序号的文章详情
  * @author 李春寅 <licy2013@aliyun.com>
  * @since 2018年9月30日
  */
 class Detail extends ApiClassAbstract
 {
+    use GetApiUserTrait;
+
     /**
      *
      * @var PostEntity
@@ -56,10 +61,7 @@ class Detail extends ApiClassAbstract
             throw new NotFoundException(sprintf('没有找到文章, 文章序号%s', $post_seq));
         }
 
-        $user_id        = $Params->getAppKey();
-        $User           = $this->Db->getManager()->getRepository(UserEntity::class)->findOneBy(['user_id' => $user_id ]);
-        $Post           = $this->Db->getManager()->getRepository(PostEntity::class)->findOneBy(['post_seq' => $post_seq, 'User' => $User]);
-
+        $Post   = $this->Db->getManager()->getRepository(PostEntity::class)->findOneBy(['post_seq' => $post_seq, 'User' => $this->getUser($Params)]);
         if(empty($Post)){
             throw new NotFoundException(sprintf('没有找到文章, 文章序号%s', $post_seq));
         }

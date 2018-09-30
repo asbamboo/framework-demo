@@ -9,6 +9,8 @@ namespace asbamboo\frameworkDemo\api\exception;
  */
 final class Code
 {
-    const POST_INVALID_SEQ  = '2000';   // 缺少有效参数 post seq
-    const POST_NOT_FOUND    = '2001';   // 找不到post entity 实例
+    const POST_NOT_FOUND        = '2000';   // 找不到post entity 实例
+    const POST_INVALID_SEQ      = '2001';   // 缺少有效参数 post seq
+    const POST_INVALID_TITLE    = '2002';   // 缺少有效参数 post title
+    const POST_INVALID_CONTENT  = '2003';   // 缺少有效参数 post content
 }

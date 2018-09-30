@@ -5,7 +5,7 @@ use asbamboo\api\exception\ApiException;
 use asbamboo\frameworkDemo\api\exception\Code;
 
 /**
- * 找不到 post 实例
+ * 无效的文章序号post seq
  *
  * @author 李春寅 <licy2013@aliyun.com>
  * @since 2018年9月30日
