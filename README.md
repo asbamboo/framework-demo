@@ -2,6 +2,7 @@
 
 针对asbamboo/framework开发的demo
 
+* [文档](http://docs.asbamboo.com/framework)
 
 安装
 -----

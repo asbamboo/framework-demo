@@ -4,11 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "603f50f0d9993a3d25f38897606d7f1d",
+    "content-hash": "a2ca64ec8918d046b7d1fc704a3f8932",
     "packages": [
         {
-            "name": "asbamboo/autoload",
+            "name": "asbamboo/api",
             "version": "1.0.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asbamboo/api.git",
+                "reference": "5fb885e718604fc5d854b2b50fe012f98c60bd6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asbamboo/api/zipball/5fb885e718604fc5d854b2b50fe012f98c60bd6f",
+                "reference": "5fb885e718604fc5d854b2b50fe012f98c60bd6f",
+                "shasum": ""
+            },
+            "require": {
+                "asbamboo/autoload": "^1.0",
+                "asbamboo/di": "^1.0",
+                "asbamboo/event": "^1.0",
+                "asbamboo/http": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.3@dev"
+            },
+            "type": "library",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "李春寅",
+                    "email": "licy2013@aliyun.com"
+                }
+            ],
+            "description": "一个可以自动生成api文档的api模块",
+            "support": {
+                "source": "https://github.com/asbamboo/api/tree/1.0.0",
+                "issues": "https://github.com/asbamboo/api/issues"
+            },
+            "time": "2018-09-30T11:44:34+00:00"
+        },
+        {
+            "name": "asbamboo/autoload",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/autoload.git",
@@ -49,7 +89,7 @@
         },
         {
             "name": "asbamboo/console",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/console.git",
@@ -87,7 +127,7 @@
         },
         {
             "name": "asbamboo/database",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/database.git",
@@ -125,16 +165,16 @@
         },
         {
             "name": "asbamboo/di",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/di.git",
-                "reference": "71b6584018a693c499416581cf1e83682c929b5b"
+                "reference": "6216ba34aa11d32fb879b83d404cac5467cbd520"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/asbamboo/di/zipball/71b6584018a693c499416581cf1e83682c929b5b",
-                "reference": "71b6584018a693c499416581cf1e83682c929b5b",
+                "url": "https://api.github.com/repos/asbamboo/di/zipball/6216ba34aa11d32fb879b83d404cac5467cbd520",
+                "reference": "6216ba34aa11d32fb879b83d404cac5467cbd520",
                 "shasum": ""
             },
             "require": {
@@ -146,7 +186,7 @@
             },
             "type": "library",
             "license": [
-                "BSD"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -156,14 +196,14 @@
             ],
             "description": "依赖注入模块",
             "support": {
-                "source": "https://github.com/asbamboo/di/tree/1.0.0",
+                "source": "https://github.com/asbamboo/di/tree/v1.0.0",
                 "issues": "https://github.com/asbamboo/di/issues"
             },
-            "time": "2018-09-17T06:58:04+00:00"
+            "time": "2018-09-22T03:57:28+00:00"
         },
         {
             "name": "asbamboo/event",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/event.git",
@@ -201,16 +241,16 @@
         },
         {
             "name": "asbamboo/framework",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/framework.git",
-                "reference": "796c7e00b25460a830a87017090953e2a5b92a4c"
+                "reference": "5c4ab25af8755015bfff0af3420a5bec7b2e45f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/asbamboo/framework/zipball/796c7e00b25460a830a87017090953e2a5b92a4c",
-                "reference": "796c7e00b25460a830a87017090953e2a5b92a4c",
+                "url": "https://api.github.com/repos/asbamboo/framework/zipball/5c4ab25af8755015bfff0af3420a5bec7b2e45f7",
+                "reference": "5c4ab25af8755015bfff0af3420a5bec7b2e45f7",
                 "shasum": ""
             },
             "require": {
@@ -241,14 +281,14 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/asbamboo/framework/tree/1.0.0",
+                "source": "https://github.com/asbamboo/framework/tree/v1.0.0",
                 "issues": "https://github.com/asbamboo/framework/issues"
             },
-            "time": "2018-09-17T07:03:13+00:00"
+            "time": "2018-09-30T07:15:28+00:00"
         },
         {
             "name": "asbamboo/helper",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/helper.git",
@@ -285,7 +325,7 @@
         },
         {
             "name": "asbamboo/http",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/http.git",
@@ -323,7 +363,7 @@
         },
         {
             "name": "asbamboo/router",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/router.git",
@@ -361,7 +401,7 @@
         },
         {
             "name": "asbamboo/security",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/security.git",
@@ -401,7 +441,7 @@
         },
         {
             "name": "asbamboo/session",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/session.git",
@@ -438,7 +478,7 @@
         },
         {
             "name": "asbamboo/template",
-            "version": "1.0.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asbamboo/template.git",
