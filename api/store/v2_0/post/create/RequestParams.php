@@ -1,5 +1,5 @@
 <?php
-namespace asbamboo\frameworkDemo\api\store\v1_0\post\detail;
+namespace asbamboo\frameworkDemo\api\store\v2_0\post\create;
 
 use asbamboo\api\apiStore\traits\CommonApiRequestParamsTrait;
 use asbamboo\api\apiStore\ApiRequestParamsAbstract;
@@ -18,11 +18,20 @@ class RequestParams extends ApiRequestParamsAbstract
     use CommonApiRequestTimestampParamsTrait;
 
     /**
-     * 文章序号
-     * @desc 文章的序号
+     * @example 文章标题自己定义
+     * @desc 文章的标题
      * @required 必须
      * @var string
      */
-    protected $post_seq;
+    protected $post_title;
+
+    /**
+     *
+     * @example 文章内容也自己定义
+     * @desc 文章内容
+     * @required 必须
+     * @var text
+     */
+    protected $post_content;
 }
 

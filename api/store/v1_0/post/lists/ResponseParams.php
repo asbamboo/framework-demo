@@ -1,5 +1,5 @@
 <?php
-namespace asbamboo\frameworkDemo\api\store\v1_0\post\create;
+namespace asbamboo\frameworkDemo\api\store\v1_0\post\lists;
 
 use asbamboo\api\apiStore\ApiResponseParams;
 
@@ -10,8 +10,8 @@ use asbamboo\api\apiStore\ApiResponseParams;
 class ResponseParams extends ApiResponseParams
 {
     /**
-     * @desc 文章序号
-     * @var int
+     * @desc 文章列表。返回由文章信息组成的列表
+     * @var array
      */
-    protected $post_seq;
+    protected $lists;
 }

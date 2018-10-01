@@ -1,25 +1,24 @@
 <?php
-namespace asbamboo\frameworkDemo\api\store\v1_0\post;
+namespace asbamboo\frameworkDemo\api\store\v2_0\post;
 
 use asbamboo\api\apiStore\ApiClassAbstract;
 use asbamboo\api\apiStore\ApiRequestParamsInterface;
 use asbamboo\api\apiStore\ApiResponseParamsInterface;
 use asbamboo\database\FactoryInterface;
-use asbamboo\frameworkDemo\model\user\UserEntity;
 use asbamboo\frameworkDemo\model\post\PostEntity;
-use asbamboo\frameworkDemo\api\exception\post\NotFoundException;
-use asbamboo\frameworkDemo\api\store\v1_0\detail\ResponseParams;
+use asbamboo\frameworkDemo\api\exception\post\InvalidPostTitleException;
+use asbamboo\frameworkDemo\api\exception\post\InvalidPostContentException;
 use asbamboo\frameworkDemo\api\traits\GetApiUserTrait;
-use asbamboo\frameworkDemo\api\exception\post\InvalidPostSeqException;
+use asbamboo\di\exception\NotFoundException;
 
 /**
  *
- * @name 文章详情
- * @desc 获取指定序号的文章详情
+ * @name 修改文章
+ * @desc 修改文章信息
  * @author 李春寅 <licy2013@aliyun.com>
  * @since 2018年9月30日
  */
-class Detail extends ApiClassAbstract
+class Update extends ApiClassAbstract
 {
     use GetApiUserTrait;
 
@@ -51,18 +50,19 @@ class Detail extends ApiClassAbstract
      */
     public function validate(ApiRequestParamsInterface $Params) : bool
     {
-        /**
-         *
-         * @var UserEntity $User
-         * @var RequestParams $Params
-         */
-        $post_seq       = $Params->getPostSeq();
-
-        if(empty($post_seq)){
+        if(empty($Params->getPostSeq())){
             throw new InvalidPostSeqException('参数文章序号无效');
         }
 
-        $Post   = $this->Db->getManager()->getRepository(PostEntity::class)->findOneBy(['post_seq' => $post_seq, 'User' => $this->getUser($Params)]);
+        if(empty($Params->getPostTitle())){
+            throw new InvalidPostTitleException('请输入文章标题。');
+        }
+
+        if(empty($Params->getPostContent())){
+            throw new InvalidPostContentException('请输入文章内容。');
+        }
+
+        $Post   = $this->Db->getManager()->getRepository(PostEntity::class)->findOneBy(['post_seq' => $Params->getPostSeq(), 'User' => $this->getUser($Params)]);
         if(empty($Post)){
             throw new NotFoundException(sprintf('没有找到文章, 文章序号%s', $post_seq));
         }
@@ -79,13 +79,11 @@ class Detail extends ApiClassAbstract
      */
     public function successApiResponseParams(ApiRequestParamsInterface $params) : ?ApiResponseParamsInterface
     {
-        return new ResponseParams([
-            'post_seq'          => $this->Post->getPostSeq(),
-            'post_title'        => $this->Post->getPostTitle(),
-            'post_content'      => $this->Post->getPostContent(),
-            'post_update_time'  => date('Y-m-d H:i:s', $this->Post->getPostUpdateTime()),
-            'user_seq'          => $this->Post->getUser()->getUserSeq(),
-            'user_id'           => $this->Post->getUser()->getUserId()
-        ]);
+        $PostEntity = $this->Post;
+        $PostEntity->setPostTitle($Params->getPostTitle());
+        $PostEntity->setPostContent($Params->getPostContent());
+        $PostEntity->setPostUpdateTime(time());
+
+        $this->DbManager->flush($PostEntity);
     }
 }

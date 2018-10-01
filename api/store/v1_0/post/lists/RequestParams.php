@@ -1,8 +1,8 @@
 <?php
-namespace asbamboo\frameworkDemo\api\store\v1_0\post\create;
+namespace asbamboo\frameworkDemo\api\store\v1_0\post\lists;
 
-use asbamboo\api\apiStore\traits\CommonApiRequestParamsTrait;
 use asbamboo\api\apiStore\ApiRequestParamsAbstract;
+use asbamboo\api\apiStore\traits\CommonApiRequestParamsTrait;
 use asbamboo\api\apiStore\traits\CommonApiRequestSignParamsTrait;
 use asbamboo\api\apiStore\traits\CommonApiRequestTimestampParamsTrait;
 
@@ -18,20 +18,18 @@ class RequestParams extends ApiRequestParamsAbstract
     use CommonApiRequestTimestampParamsTrait;
 
     /**
-     *
-     * 文章序号
-     * @desc 文章的序号
-     * @required 必须
+     * @desc 列表中数据返回的字段，取值范围中列出的字段，用英文逗号间隔。
+     * @required 可选
+     * @range post_seq,post_title,post_content,post_update_time,user_seq,user_id
      * @var string
      */
-    protected $post_title;
+    protected $fields = "post_seq,post_title,post_update_time";
 
     /**
-     *
-     * @desc 文章内容
-     * @required 必须
-     * @var text
+     * @desc 文章标题
+     * @required 可选
+     * @var string
      */
-    protected $post_content;
+    protected $post_title = '';
 }
 

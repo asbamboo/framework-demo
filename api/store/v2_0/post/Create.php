@@ -1,5 +1,5 @@
 <?php
-namespace asbamboo\frameworkDemo\api\store\v1_0\post;
+namespace asbamboo\frameworkDemo\api\store\v2_0\post;
 
 use asbamboo\api\apiStore\ApiClassAbstract;
 use asbamboo\api\apiStore\ApiRequestParamsInterface;

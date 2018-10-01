@@ -4,7 +4,7 @@ namespace asbamboo\frameworkDemo\model\post;
 use asbamboo\frameworkDemo\model\user\UserEntity;
 
 /**
- * @Entity
+ * @Entity(repositoryClass="PostRepository")
  * @Table(name="t_post")
  */
 class PostEntity

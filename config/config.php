@@ -7,6 +7,9 @@ use asbamboo\framework\template\Template;
 use asbamboo\security\user\login\Login;
 use asbamboo\security\gurad\authorization\Authenticator;
 use asbamboo\api\apiStore\ApiStore;
+use asbamboo\api\apiStore\validator\TimestampChecker;
+use asbamboo\api\apiStore\validator\CheckerCollection;
+use asbamboo\frameworkDemo\api\SignChecker;
 
 return [
     DbConfig::class             =>
@@ -25,5 +28,11 @@ return [
         ['init_params' => ['RuleCollection' => include __DIR__ . DIRECTORY_SEPARATOR . 'authorization.php']],
     ApiStore::class             =>
         ['init_params' => ['namespace' => 'asbamboo\\frameworkDemo\\api\\store', 'dir' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'store']],
+    TimestampChecker::class     =>
+        ['class' => TimestampChecker::class],
+    SignChecker::class          =>
+        ['class' => SignChecker::class],
+    CheckerCollection::class    =>
+        ['init_params' => ['@'.TimestampChecker::class, '@'.SignChecker::class]],
 ];
 
