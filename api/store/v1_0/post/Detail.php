@@ -8,7 +8,7 @@ use asbamboo\database\FactoryInterface;
 use asbamboo\frameworkDemo\model\user\UserEntity;
 use asbamboo\frameworkDemo\model\post\PostEntity;
 use asbamboo\frameworkDemo\api\exception\post\NotFoundException;
-use asbamboo\frameworkDemo\api\store\v1_0\detail\ResponseParams;
+use asbamboo\frameworkDemo\api\store\v1_0\post\detail\ResponseParams;
 use asbamboo\frameworkDemo\api\traits\GetApiUserTrait;
 use asbamboo\frameworkDemo\api\exception\post\InvalidPostSeqException;
 
@@ -77,7 +77,7 @@ class Detail extends ApiClassAbstract
      * {@inheritDoc}
      * @see \asbamboo\api\apiStore\ApiClassAbstract::successApiResponseParams()
      */
-    public function successApiResponseParams(ApiRequestParamsInterface $params) : ?ApiResponseParamsInterface
+    public function successApiResponseParams(ApiRequestParamsInterface $Params) : ?ApiResponseParamsInterface
     {
         return new ResponseParams([
             'post_seq'          => $this->Post->getPostSeq(),

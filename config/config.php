@@ -10,6 +10,8 @@ use asbamboo\api\apiStore\ApiStore;
 use asbamboo\api\apiStore\validator\TimestampChecker;
 use asbamboo\api\apiStore\validator\CheckerCollection;
 use asbamboo\frameworkDemo\api\SignChecker;
+use asbamboo\api\apiStore\ApiRequestUri;
+use asbamboo\api\apiStore\ApiRequestUris;
 
 return [
     DbConfig::class             =>
@@ -34,5 +36,9 @@ return [
         ['class' => SignChecker::class],
     CheckerCollection::class    =>
         ['init_params' => ['@'.TimestampChecker::class, '@'.SignChecker::class]],
+    ApiRequestUri::class        =>
+        ['init_params' => ['http://' . ($_SERVER['HTTP_HOST'] ?? 'xxx')  . '/api', '测试请求地址', 'test']],
+    ApiRequestUris::class       =>
+        ['init_params' => ['@'.ApiRequestUri::class]],
 ];
 

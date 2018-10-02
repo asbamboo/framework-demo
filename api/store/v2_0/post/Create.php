@@ -9,7 +9,7 @@ use asbamboo\frameworkDemo\model\post\PostEntity;
 use asbamboo\frameworkDemo\api\exception\post\InvalidPostTitleException;
 use asbamboo\frameworkDemo\api\exception\post\InvalidPostContentException;
 use asbamboo\frameworkDemo\api\traits\GetApiUserTrait;
-use asbamboo\frameworkDemo\api\store\v1_0\post\create\ResponseParams;
+use asbamboo\frameworkDemo\api\store\v2_0\post\create\ResponseParams;
 
 /**
  *
@@ -66,15 +66,15 @@ class Create extends ApiClassAbstract
      * {@inheritDoc}
      * @see \asbamboo\api\apiStore\ApiClassAbstract::successApiResponseParams()
      */
-    public function successApiResponseParams(ApiRequestParamsInterface $params) : ?ApiResponseParamsInterface
+    public function successApiResponseParams(ApiRequestParamsInterface $Params) : ?ApiResponseParamsInterface
     {
         $PostEntity = new PostEntity();
         $PostEntity->setPostTitle($Params->getPostTitle());
         $PostEntity->setPostContent($Params->getPostContent());
         $PostEntity->setUser($this->getUser($Params));
 
-        $this->DbManager->persist($PostEntity);
-        $this->DbManager->flush();
+        $this->Db->getManager()->persist($PostEntity);
+        $this->Db->getManager()->flush();
 
         return new ResponseParams(['post_seq' => $PostEntity->getPostSeq()]);
     }
