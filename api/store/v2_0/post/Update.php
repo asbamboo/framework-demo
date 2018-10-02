@@ -77,13 +77,14 @@ class Update extends ApiClassAbstract
      * {@inheritDoc}
      * @see \asbamboo\api\apiStore\ApiClassAbstract::successApiResponseParams()
      */
-    public function successApiResponseParams(ApiRequestParamsInterface $params) : ?ApiResponseParamsInterface
+    public function successApiResponseParams(ApiRequestParamsInterface $Params) : ?ApiResponseParamsInterface
     {
         $PostEntity = $this->Post;
         $PostEntity->setPostTitle($Params->getPostTitle());
         $PostEntity->setPostContent($Params->getPostContent());
         $PostEntity->setPostUpdateTime(time());
 
-        $this->DbManager->flush($PostEntity);
+        $this->Db->getManager()->flush($PostEntity);
+        return null;
     }
 }

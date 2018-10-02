@@ -13,4 +13,5 @@ return  [
     ['id' => 'post_delete', 'path' => '/post-delete' , 'callback' => 'asbamboo\\frameworkDemo\\controller\\Post:delete'],
     ['id' => 'api', 'path' => '/api' , 'callback' => 'asbamboo\\api\\Controller:api', ['default_params' => ['version'=>'']]],
     ['id' => 'api_doc', 'path' => '/api-doc' , 'callback' => 'asbamboo\\api\\Controller:doc'],
+    ['id' => 'api_test', 'path' => '/api-test' , 'callback' => 'asbamboo\\api\\Controller:testTool'],
 ];
