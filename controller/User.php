@@ -3,9 +3,6 @@ namespace asbamboo\frameworkDemo\controller;
 
 use asbamboo\framework\controller\ControllerAbstract;
 use asbamboo\http\ResponseInterface;
-use asbamboo\http\ServerRequest;
-use asbamboo\framework\Constant;
-use asbamboo\database\Factory;
 use asbamboo\frameworkDemo\model\user\UserEntity;
 use \asbamboo\frameworkDemo\model\user\Constant AS UserConstant;
 use asbamboo\database\FactoryInterface;
