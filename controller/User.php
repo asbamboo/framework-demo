@@ -54,6 +54,7 @@ class User extends ControllerAbstract
         try
         {
             $user_id                = $this->Request->getPostParam('user_id');
+            $user_security          = $this->Request->getPostParam('user_security');
             $user_password          = $this->Request->getPostParam('user_password');
             $user_confirm_password  = $this->Request->getPostParam('user_confirm_password');
             $UserEntity             = new UserEntity();
@@ -73,6 +74,7 @@ class User extends ControllerAbstract
 
                 $UserEntity->setUserId($user_id);
                 $UserEntity->setUserPassword($user_password);
+                $UserEntity->setUserSecurity($user_security);
                 $UserEntity->setUserType(UserConstant::TYPE_USER);
 
                 $this->DbManager->persist($UserEntity);
@@ -95,6 +97,7 @@ class User extends ControllerAbstract
         $error_message  = '';
         try
         {
+            $user_security          = $this->Request->getPostParam('user_security');
             $user_password          = $this->Request->getPostParam('user_password');
             $user_confirm_password  = $this->Request->getPostParam('user_confirm_password');
             $UserRepository         = $this->DbManager->getRepository(UserEntity::class);
@@ -110,6 +113,7 @@ class User extends ControllerAbstract
                 }
 
                 $UserEntity->setUserPassword($user_password);
+                $UserEntity->setUserSecurity($user_security);
                 $UserEntity->setUserType(UserConstant::TYPE_USER);
 
                 $this->DbManager->persist($UserEntity);
