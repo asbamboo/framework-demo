@@ -12,6 +12,10 @@
             <input type="text" class="form-control" name="user_id" id="user_id" placeholder="请输入用户ID">
           </div>
           <div class="form-group">
+            <label for="user_security">api security</label>
+            <input type="text" class="form-control" name="user_security" id="user_security" placeholder="api security不为空的情况下，用户可以通过接口管理文章">
+          </div>
+          <div class="form-group">
             <label for="user_password">密码</label>
             <input type="password" class="form-control" name="user_password" id="user_password" placeholder="请输入用户密码">
           </div>

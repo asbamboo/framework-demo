@@ -12,6 +12,10 @@
             <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{UserEntity.getUserId()}}" readonly>
           </div>
           <div class="form-group">
+            <label for="user_security">api security</label>
+            <input type="text" class="form-control" name="user_security" id="user_security" value="{{UserEntity.getUserSecurity()}}" placeholder="api security不为空的情况下，用户可以通过接口管理文章">
+          </div>
+          <div class="form-group">
             <label for="user_password">密码</label>
             <input type="password" class="form-control" name="user_password" id="user_password" value="{{UserEntity.getUserPassword()}}" placeholder="请输入用户密码">
           </div>

@@ -4,6 +4,7 @@ namespace asbamboo\frameworkDemo\listener;
 use asbamboo\security\user\token\UserTokenInterface;
 use asbamboo\http\RedirectResponse;
 use asbamboo\router\RouterInterface;
+use asbamboo\session\SessionInterface;
 
 /**
  *
@@ -24,7 +25,7 @@ class LoginListener
      */
     public function __construct(RouterInterface $Router)
     {
-        $this->Router = $Router;
+        $this->Router   = $Router;
     }
 
     /**

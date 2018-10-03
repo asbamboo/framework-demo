@@ -48,9 +48,9 @@ class SignChecker extends SignCheckerAbstract
          */
        $app_key = $this->Request->getRequestParam($this->input_app_key);
        $User    = $this->Db->getManager()->getRepository(UserEntity::class)->findOneBy(['user_id' => $app_key]);
-       if(empty($User)){
+       if(empty($User) || empty($User->getUserSecurity())){
             throw new InvalidAppKeyException('无效的 app_key.');
        }
-       return $User->getUserPassword();
+       return $User->getUserSecurity();
     }
 }

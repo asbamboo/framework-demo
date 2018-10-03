@@ -4,6 +4,9 @@
 <div class="container">
 	<div>
 	    <a href="{{ path('post_create') }}" class="btn btn-link">添加文章</a>
+	    {% if app.user.getUserSecurity() %}
+	    	<a href="{{ path('api_doc') }}" class="btn btn-link">通过API管理文章</a>
+	    {% endif %}
 	</div>
 	<div>
 	    <table class="table">

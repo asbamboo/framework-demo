@@ -64,7 +64,7 @@ class InitCommand extends CommandAbstract
          * @var Factory $Db
          */
         $this->DbManager->getConnection()->exec("
-            CREATE TABLE `t_user`(`user_seq` INTEGER PRIMARY KEY, `user_id`, `user_password`, `user_type`);
+            CREATE TABLE `t_user`(`user_seq` INTEGER PRIMARY KEY, `user_id`, `user_password`, `user_type`, `user_security`);
         ");
         $this->DbManager->getConnection()->exec("
             CREATE TABLE `t_post`(`post_seq` INTEGER PRIMARY KEY, `post_title`, `post_content`, `user_seq`, `post_create_time`, `post_update_time`);

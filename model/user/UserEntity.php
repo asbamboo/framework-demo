@@ -33,6 +33,14 @@ class UserEntity extends BaseUser
     private $user_password;
 
     /**
+     *
+     * @var string
+     *
+     * @Column(type="string")
+     */
+    private $user_security;
+
+    /**
      * @var int
      *
      * @Column(type="integer")
@@ -86,9 +94,29 @@ class UserEntity extends BaseUser
      *
      * @return string
      */
-    public function getUserPassword()
+    public function getUserPassword() : string
     {
         return $this->user_password;
+    }
+
+    /**
+     *
+     * @param string $user_security
+     * @return \asbamboo\frameworkDemo\model\user\UserEntity
+     */
+    public function setUserSecurity(string $user_security)
+    {
+        $this->user_security    = $user_security;
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getUserSecurity() : string
+    {
+        return $this->user_security ?? '';
     }
 
     /**
