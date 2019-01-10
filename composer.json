@@ -13,6 +13,5 @@
         "asbamboo/framework": "^1.0",
         "asbamboo/api": "^1.0"
     },
-    "prefer-stable": true,
     "minimum-stability": "dev"
 }

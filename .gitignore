@@ -1,3 +1,6 @@
 /vendor/
 /data/
 /data/db.sqlite
+.buildpath
+.project
+.settings/

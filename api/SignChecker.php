@@ -40,7 +40,7 @@ class SignChecker extends SignCheckerAbstract
      * {@inheritDoc}
      * @see \asbamboo\api\apiStore\validator\SignCheckerAbstract::getAppSecurity()
      */
-    protected function getAppSecurity(): string
+    public function getAppSecurity(): string
     {
         /**
          *
