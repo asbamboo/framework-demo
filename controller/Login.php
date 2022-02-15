@@ -17,32 +17,11 @@ use asbamboo\security\user\login\LogoutInterface;
 class Login extends ControllerAbstract
 {
     /**
-     *
-     * @var ServerRequestInterface
-     * @var LoginInterface
-     * @var LogoutInterface
-     */
-    private $Request, $Login, $Logout;
-
-    /**
-     *
-     * @param ServerRequestInterface $Request
-     * @param LoginInterface $Login
-     * @param LogoutInterface $Logout
-     */
-    public function __construct(ServerRequestInterface $Request, LoginInterface $Login, LogoutInterface $Logout)
-    {
-        $this->Request  = $Request;
-        $this->Login    = $Login;
-        $this->Logout   = $Logout;
-    }
-
-    /**
      * 登陆表单
      *
      * @return \asbamboo\http\ResponseInterface
      */
-    public function form() : ResponseInterface
+    public function form(ServerRequestInterface $Request, LoginInterface $Login) : ResponseInterface
     {
         $error_message    = '';
         try
@@ -50,8 +29,8 @@ class Login extends ControllerAbstract
             /**
              * 登录成功后通过事件处理页面跳转。
              */
-            if($this->Request->getMethod() == 'POST'){
-                $this->Login->handler($this->Request);
+            if($Request->getMethod() == 'POST'){
+                $Login->handler($Request);
             }
         }catch(UserNotExistsException $e){
             $error_message    = '用户名或者密码错误';
@@ -68,9 +47,9 @@ class Login extends ControllerAbstract
      *
      * @return \asbamboo\http\ResponseInterface
      */
-    public function logout()
+    public function logout(ServerRequestInterface $Request, LogoutInterface $Logout)
     {
-        $this->Logout->handler($this->Request);
+        $Logout->handler($Request);
         return $this->redirect('home');
     }
 }

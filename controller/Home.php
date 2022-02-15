@@ -3,7 +3,6 @@ namespace asbamboo\frameworkDemo\controller;
 
 use asbamboo\framework\controller\ControllerAbstract;
 use asbamboo\frameworkDemo\model\post\PostEntity;
-use Doctrine\ORM\EntityRepository;
 use asbamboo\database\FactoryInterface;
 
 /**
@@ -15,30 +14,15 @@ class Home extends ControllerAbstract
 {
     /**
      *
-     * @var FactoryInterface
-     */
-    private $Db;
-
-    /**
-     *
-     * @param FactoryInterface $Db
-     */
-    public function __construct(FactoryInterface $Db)
-    {
-        $this->Db   = $Db;
-    }
-
-    /**
-     *
      * @return \asbamboo\http\ResponseInterface
      */
-    public function index()
+    public function index(FactoryInterface $Db)
     {
         /**
          * @var UserToken $UserToken
          * @var EntityRepository $PostRepository
          */
-        $DbManager              = $this->Db->getManager();
+        $DbManager              = $Db->getManager();
         $PostRepository         = $DbManager->getRepository(PostEntity::class);
         $PostEntitys            = $PostRepository->findBy([], ['post_update_time' => 'DESC']);
         return $this->view([ 'PostEntitys' => $PostEntitys]);
