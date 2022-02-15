@@ -1,7 +1,6 @@
 {
     "name": "asbamboo/framework-demo",
     "type": "project",
-    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "李春寅",
@@ -15,8 +14,8 @@
     },
     "require": {
         "php": "^7.2",
-        "asbamboo/framework": "^1.0",
-        "asbamboo/api": "^1.0"
+        "asbamboo/framework": "dev-master",
+        "asbamboo/api": "dev-master"
     },
     "minimum-stability": "dev"
 }
